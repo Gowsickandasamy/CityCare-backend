@@ -94,7 +94,7 @@ WSGI_APPLICATION = 'CityCare.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'citycare',  # You can keep this or rename
+        'NAME': 'citycare',
         'ENFORCE_SCHEMA': False,
         'CLIENT': {
             'host': os.environ.get("MONGO_URI")
