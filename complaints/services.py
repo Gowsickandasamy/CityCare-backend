@@ -62,7 +62,7 @@ def get_complaints(admin_id=None, officer_id=None, user_id=None):
                 "location_link": complaint.location_link,
                 "created_at": complaint.created_at,
                 "status": complaint.status,
-                "image": complaint.image.url if complaint.image else None
+                "image":getattr(complaint.image, 'url', None)
             })
         
         return result
@@ -86,7 +86,7 @@ def get_complaint(id):
                 "location_link": complaint.location_link,
                 "created_at": complaint.created_at,
                 "status": complaint.status,
-                "image": complaint.image.url if complaint.image else None,
+                "image": getattr(complaint.image, 'url', None),
             }
         }
 
@@ -151,7 +151,7 @@ def current_complaints(admin_id=None, officer_id=None, user_id=None):
                 "location_link": complaint.location_link,
                 "created_at": complaint.created_at,
                 "status": complaint.status,
-                "image": complaint.image.url if complaint.image else None,
+                "image":getattr(complaint.image, 'url', None),
             }
             for complaint in complaints
         ]
@@ -187,7 +187,7 @@ def resolved_complaints(admin_id=None, officer_id=None, user_id=None):
                 "location_link": complaint.location_link,
                 "created_at": complaint.created_at,
                 "status": complaint.status,
-                "image": complaint.image.url if complaint.image else None,
+                "image": getattr(complaint.image, 'url', None),
             }
             for complaint in complaints
         ]
@@ -237,7 +237,7 @@ def detail_complaint(id):
                 "created_at": complaint.created_at,
                 "status": complaint.status,
                 "officer_ratings": ratings_data,
-                "image": complaint.image.url if complaint.image else None,
+                "image": getattr(complaint.image, 'url', None),
             }
         }
 
