@@ -151,7 +151,7 @@ def current_complaints(admin_id=None, officer_id=None, user_id=None):
                 "location_link": complaint.location_link,
                 "created_at": complaint.created_at,
                 "status": complaint.status,
-                "image":getattr(complaint.image, 'url', None),
+                "image":complaint.image.url if complaint.image else None,
             }
             for complaint in complaints
         ]
