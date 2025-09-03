@@ -40,18 +40,20 @@ class ComplaintListView(APIView):
         user = request.user
 
         if user.role == 'ADMIN':
-            complaints = get_complaints(admin_id=user.id)
+            complaints = Complaint.objects.filter(admin_id=user.id)
         elif user.role == 'OFFICER':
-            complaints = get_complaints(officer_id=user.id)
+            complaints = Complaint.objects.filter(officer_id=user.id)
         elif user.role == 'USER':
-            complaints = get_complaints(user_id=user.id)
+            complaints = Complaint.objects.filter(user_id=user.id)
         else:
             return Response({"error": "Invalid user role"}, status=status.HTTP_403_FORBIDDEN)
 
-        if complaints == "No Complaints":
+        if not complaints.exists():
             return Response({"message": "No Complaints found"}, status=status.HTTP_200_OK)
-       
-        return Response(complaints, status=status.HTTP_200_OK)
+
+        serializer = ComplaintSerializer(complaints, many=True, context={"request": request})
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     
     
 class ComplaintView(APIView):

@@ -3,6 +3,9 @@ from rest_framework import serializers
 from officers.serializers import OfficerRatingSerializer
 from .models import Complaint
 class ComplaintSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(source='user.username', read_only=True)
+    officer = serializers.CharField(source='officer.username', read_only=True)
+    admin = serializers.CharField(source='admin.username', read_only=True)
     class Meta:
         model=Complaint
         fields=['id', 'user', 'officer', 'admin', 'title', 'description', 'area_name', 'location_link', 'created_at', 'status']
@@ -20,6 +23,9 @@ class ComplaintEditSerializer(serializers.Serializer):
     location_link = serializers.URLField()
     
 class ComplaintDetailSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(source='user.username', read_only=True)
+    officer = serializers.CharField(source='officer.username', read_only=True)
+    admin = serializers.CharField(source='admin.username', read_only=True)
     officer_ratings = serializers.SerializerMethodField()
     image_url = serializers.SerializerMethodField() 
 
